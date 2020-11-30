@@ -1,0 +1,9 @@
+SELECT * FROM STAFF WHERE SEX = 'M';
+
+SELECT * FROM HIRE_AGREEMENT ORDER BY period_start DESC;
+
+SELECT VEHICLES.registration_number, VEHICLES.current_milage, OUTLETS.address FROM VEHICLES INNER JOIN OUTLETS ON OUTLETS.location_number = VEHICLES.location_number;
+
+SELECT STAFF.first_name, STAFF.last_name, OUTLETS.location_number FROM STAFF INNER JOIN OUTLETS ON OUTLETS.location_number = STAFF.location_number;
+
+SELECT VEHICLES.model, VEHICLES.make FROM VEHICLES WHERE current_milage > 100;

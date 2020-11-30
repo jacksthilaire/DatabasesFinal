@@ -1,0 +1,82 @@
+CREATE TABLE VEHICLES(
+    registration_number int,
+    model varchar(255),
+    make varchar(255),
+    engine_size varchar(255),
+    capacity int, 
+    current_milage varchar(255),
+    hire_rate int,
+    location_number int
+);
+
+ALTER TABLE VEHICLES ADD PRIMARY KEY (registration_number);
+ALTER TABLE VEHICLES ADD FOREIGN KEY (location_number) REFERENCES OUTLETS(location_number);
+
+ALTER TABLE VEHICLES ADD CHECK(current_milage >= 0);
+ALTER TABLE VEHICLES ADD CHECK(capacity >= 1);
+ALTER TABLE VEHICLES ADD CHECK(hire_rate >= 0);
+
+/*----------------------------------------------------------------------------*/
+
+CREATE TABLE HIRE_AGREEMENT(
+    hire_number int,
+    client_number int,
+    registration_number int,
+    period_start date,
+    period_end date,
+    milage_before int,
+    milage_after int
+);
+
+ALTER TABLE HIRE_AGREEMENT ADD PRIMARY KEY (hire_number);
+ALTER TABLE HIRE_AGREEMENT ADD FOREIGN KEY (client_number) REFERENCES CLIENTS(client_number);
+ALTER TABLE HIRE_AGREEMENT ADD FOREIGN KEY (registration_number) REFERENCES VEHICLES(registration_number);
+
+ALTER TABLE HIRE_AGREEMENT ADD CHECK(period_start <= period_end);
+ALTER TABLE HIRE_AGREEMENT ADD CHECK(milage_before <= milage_after);
+
+/*----------------------------------------------------------------------------*/
+
+CREATE TABLE STAFF(
+    staff_number int,
+    location_number int,
+    first_name varchar(255),
+    last_name varchar(255),
+    home_address varchar(255),
+    home_phone int,
+    staff_dob date,
+    sex varchar(255),
+    date_joined date,
+    job_title varchar(255),
+    salary int
+);
+
+ALTER TABLE STAFF ADD PRIMARY KEY (staff_number);
+ALTER TABLE STAFF ADD FOREIGN KEY (location_number) REFERENCES OUTLETS(location_number);
+
+ALTER TABLE STAFF ADD CHECK(sex='M' OR sex='F');
+
+/*----------------------------------------------------------------------------*/
+
+CREATE TABLE CLIENTS(
+    client_number int,
+    first_name varchar(255),
+    last_name varchar(255),
+    home_address varchar(255),
+    client_phone_number int,
+    client_dob date,
+    liscense_number int
+);
+
+ALTER TABLE CLIENTS ADD PRIMARY KEY (client_number);
+
+/*----------------------------------------------------------------------------*/
+
+CREATE TABLE OUTLETS(
+    location_number int,
+    address varchar(255),
+    phone_number int,
+    fax_number int
+);
+
+ALTER TABLE OUTLETS ADD PRIMARY KEY (location_number);
